@@ -6,6 +6,7 @@
     "node-telegram-bot-api": "^0.56.0",
     "nodemon": "^2.0.15"
   },
+  "main": "index.js",
   "scripts": {
     "start": "node index",
     "dev": "nodemon index"
