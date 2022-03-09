@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node index",
+    "start": "npm install && node index",
     "dev": "nodemon index"
   }
 }
