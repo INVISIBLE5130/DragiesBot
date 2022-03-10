@@ -16,6 +16,7 @@ bot.on('text', function(msg) {
     let getMarketplaces = {
         reply_markup: JSON.stringify({
             inline_keyboard: [
+                [{ text: 'OpenSea', url: 'https://opensea.io/collection/dragies-band', callback_data: '' }],
                 [{ text: 'AlphaArt', url: 'https://alpha.art/collection/dragies-band', callback_data: '' }],
                 [{ text: 'Solanart', url: 'https://solanart.io/', callback_data: '' }],
                 [{ text: 'Rarible', url: 'https://rarible.com/', callback_data: '' }]
@@ -30,8 +31,8 @@ bot.on('text', function(msg) {
     let getCreators = {
         reply_markup: JSON.stringify({
             inline_keyboard: [
-                [{text: 'Designer - Svitlana', url: 'https://alpha.art/collection/dragies-band', callback_data: ''}],
                 [{text: 'Artist - Iryna', url: 'https://alpha.art/collection/dragies-band', callback_data: ''}],
+                [{text: 'Designer - Svitlana', url: 'https://alpha.art/collection/dragies-band', callback_data: ''}],
                 [{text: 'Developer - Ihor', url: 'https://alpha.art/collection/dragies-band', callback_data: ''}],
             ]
         })
@@ -52,9 +53,5 @@ bot.on('text', function(msg) {
 
     if (messageText === '/start' ) {
         bot.sendMessage(messageChatId, `DragiesBot greetings ${userName}! Bot will help you to get the necessary info for you.`, keyboard);
-    }
-
-    if (messageText === '/about') {
-        bot.sendMessage(messageChatId, `Hi! Description will be added ASAP :)`)
     }
 });
