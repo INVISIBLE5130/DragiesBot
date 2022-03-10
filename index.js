@@ -1,8 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
 const dotenv = require('dotenv').config();
-if (dotenv.error) {
-    throw dotenv.error
-}
 const TOKEN = process.env.TOKEN;
 
 const botOptions = {
