@@ -1,6 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 const dotenv = require('dotenv').config();
 const TOKEN = process.env.TOKEN;
+const DragiesDrawingsChatId = process.env.DRAGIESDRAWINGSCHATID;
 
 const botOptions = {
     polling: true
@@ -8,7 +9,19 @@ const botOptions = {
 
 const bot = new TelegramBot(TOKEN, botOptions);
 
-bot.on('text', function(msg) {
+bot.on('photo', function (msg) {
+    if (msg.caption === '#drawings') {
+        bot.getFile(msg.photo[msg.photo.length - 1].file_id).then((resp) => {
+            bot.sendPhoto(DragiesDrawingsChatId, resp.file_id, {}, {})
+        })
+    }
+})
+
+bot.on('polling_error', (error) => {
+    console.log(error);
+});
+
+bot.on('text', function (msg) {
     let userName = msg.chat.first_name;
     let messageChatId = msg.chat.id;
     let messageText = msg.text;
@@ -16,10 +29,10 @@ bot.on('text', function(msg) {
     let getMarketplaces = {
         reply_markup: JSON.stringify({
             inline_keyboard: [
-                [{ text: 'OpenSea', url: 'https://opensea.io/collection/dragies-band', callback_data: '' }],
-                [{ text: 'AlphaArt', url: 'https://alpha.art/collection/dragies-band', callback_data: '' }],
-                [{ text: 'Solanart', url: 'https://solanart.io/', callback_data: '' }],
-                [{ text: 'Rarible', url: 'https://rarible.com/', callback_data: '' }]
+                [{text: 'OpenSea', url: 'https://opensea.io/collection/dragies-band', callback_data: ''}],
+                [{text: 'AlphaArt', url: 'https://alpha.art/collection/dragies-band', callback_data: ''}],
+                [{text: 'Solanart', url: 'https://solanart.io/', callback_data: ''}],
+                [{text: 'Rarible', url: 'https://rarible.com/', callback_data: ''}]
             ]
         })
     };
@@ -51,12 +64,7 @@ bot.on('text', function(msg) {
         })
     };
 
-    if (messageText === '/start' ) {
+    if (messageText === '/start') {
         bot.sendMessage(messageChatId, `DragiesBot greetings ${userName}! Bot will help you to get the necessary info for you.`, keyboard);
     }
 });
-
-var http = require("http");
-setInterval(function() {
-    http.get("https://dragies-bot.herokuapp.com");
-}, 300000);
