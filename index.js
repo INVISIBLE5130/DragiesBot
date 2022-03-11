@@ -31,6 +31,7 @@ bot.on('text', function (msg) {
             inline_keyboard: [
                 [{text: 'OpenSea', url: 'https://opensea.io/collection/dragies-band', callback_data: ''}],
                 [{text: 'AlphaArt', url: 'https://alpha.art/collection/dragies-band', callback_data: ''}],
+                [{text: 'MagicEden', url: 'https://magiceden.io/', callback_data: ''}],
                 [{text: 'Solanart', url: 'https://solanart.io/', callback_data: ''}],
                 [{text: 'Rarible', url: 'https://rarible.com/', callback_data: ''}]
             ]
