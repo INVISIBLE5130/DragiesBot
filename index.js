@@ -68,3 +68,7 @@ bot.on('text', function (msg) {
         bot.sendMessage(messageChatId, `DragiesBot greetings ${userName}! Bot will help you to get the necessary info for you.`, keyboard);
     }
 });
+
+setInterval(() => {
+    console.log('I`m alive :)')
+}, 1200000)
