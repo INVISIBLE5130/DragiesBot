@@ -2,6 +2,13 @@ const TelegramBot = require('node-telegram-bot-api');
 const dotenv = require('dotenv').config();
 const TOKEN = process.env.TOKEN;
 const DragiesDrawingsChatId = process.env.DRAGIESDRAWINGSCHATID;
+const DragiesWellDoneChatId = process.env.DRAGIESWELLDONECHATID;
+
+const chatId = tag => tag === '#drawings'
+    ? DragiesDrawingsChatId
+    : tag === '#wellDone'
+        ? DragiesWellDoneChatId
+        : ''
 
 const botOptions = {
     polling: true
@@ -9,11 +16,12 @@ const botOptions = {
 
 const bot = new TelegramBot(TOKEN, botOptions);
 
-bot.on('photo', function (msg) {
-    if (msg.caption === '#drawings') {
-        bot.getFile(msg.photo[msg.photo.length - 1].file_id).then((resp) => {
-            bot.sendPhoto(DragiesDrawingsChatId, resp.file_id, {}, {})
-        })
+bot.on('photo', function ({caption, photo}) {
+    if (caption === '#drawings' || caption === '#wellDone') {
+        bot.getFile(photo[photo.length - 1].file_id)
+            .then((resp) => {
+                bot.sendPhoto(chatId(caption), resp.file_id, {}, {})
+            })
     }
 })
 
