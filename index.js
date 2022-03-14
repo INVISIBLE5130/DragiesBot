@@ -4,9 +4,9 @@ const TOKEN = process.env.TOKEN;
 const DragiesDrawingsChatId = process.env.DRAGIESDRAWINGSCHATID;
 const DragiesWellDoneChatId = process.env.DRAGIESWELLDONECHATID;
 
-const chatId = tag => tag === '#drawings'
+const chatId = caption => caption === '#drawings'
     ? DragiesDrawingsChatId
-    : tag === '#wellDone'
+    : caption === '#wellDone'
         ? DragiesWellDoneChatId
         : ''
 
@@ -17,10 +17,19 @@ const botOptions = {
 const bot = new TelegramBot(TOKEN, botOptions);
 
 bot.on('photo', function ({caption, photo}) {
-    if (caption === '#drawings' || caption === '#wellDone') {
+    if (caption === '#drawings') {
         bot.getFile(photo[photo.length - 1].file_id)
             .then((resp) => {
                 bot.sendPhoto(chatId(caption), resp.file_id, {}, {})
+            })
+    }
+})
+
+bot.on('document', function ({caption, document}) {
+    if (caption === '#wellDone') {
+        bot.getFile(document.file_id)
+            .then((resp) => {
+                bot.sendDocument(chatId(caption), resp.file_id, {}, {})
             })
     }
 })
